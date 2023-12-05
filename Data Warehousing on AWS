@@ -1,0 +1,590 @@
+Data Warehousing on AWS
+
+Amazon Redshift Documentation
+
+https://docs.aws.amazon.com/redshift/
+
+**Amazon Redshift - Fundamentals**
+
+https://s3-eu-west-1.amazonaws.com/cdn.jefclaes.be/amazon-redshift-fundamentals/aws-redshift-fundamentals.html
+
+Module1: Introduction to Data Warehousing
+Module2: Introduction to Amazon Redshift
+Module3: Launching Clusters
+Module4: Designing the Database Schema
+Module5: Identifying Data Sources
+Module6: Loading Data
+Module7: Writing Queries and Tuning Performance
+Module8: Amazon Redshift Spectrum
+Module9: Maintaining Clusters
+Module10: Analyzing and Visualizing Data
+
+=================================Day1=================================
+
+Module 1: Introduction to Data Warehousing-41
+
+Module 2: **Introduction to Amazon Redshift**-38
+
+Data warehouse system architecture
+
+https://docs.aws.amazon.com/redshift/latest/dg/c_high_level_system_architecture.html
+Overview of managing clusters in Amazon Redshift
+
+https://docs.aws.amazon.com/redshift/latest/mgmt/managing-cluster-operations.html
+
+Classic resize handles use cases where the change in cluster size or node type **isn't supported** by elastic resize.
+
+Classic resize to RA3 can provide better availability: Classic resize has been enhanced when the target node type is RA3.
+
+You **can't pause** the following types of clusters:
+
+- EC2-Classic clusters.
+- Clusters that are not active, for example, a cluster that is currently modifying.
+- Hardware security module (HSM) clusters.
+- Clusters that have automated snapshots turned off.
+
+When deciding to pause a cluster, **consider** the following: https://docs.aws.amazon.com/redshift/latest/mgmt/managing-cluster-operations.html
+
+**AWS Pricing Calculator**
+
+https://calculator.aws/#/?key=new
+
+**Examples of using a federated query**
+
+https://docs.aws.amazon.com/redshift/latest/dg/federated_query_example.html
+
+Lab1: Introduction to Amazon Redshift
+
+Module 3: Launching Clusters 
+
+Step 1: Identify Cluster Requirements
+
+Step 2a: Configure Network Settings
+
+Step 2b: Create a Cluster Subnet Group
+
+Step 2c: Create a Cluster Parameter Group (Optional)
+
+Step 2d: Configure Encryption Settings
+
+Step 3: Launch the Cluster
+
+Step 1: Configure SQL Client Connectivity
+
+Step 2: Configure Permissions
+
+Step 3: Database Security https://docs.aws.amazon.com/redshift/latest/dg/r_Database_objects.html
+
+**Role-based access control (RBAC)** https://docs.aws.amazon.com/redshift/latest/dg/t_Roles.html
+
+**Row-level security** [column-level access control](https://docs.aws.amazon.com/redshift/latest/dg/r_GRANT-usage-notes.html#r_GRANT-usage-notes-clp)
+
+Step 4: Configure Monitoring and Auditing Settings
+
+Step 5: Analyze Data
+
+https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.htm 
+
+RA3 nodes with managed storage enable you to optimize your data warehouse by scaling and paying for compute and managed storage independently.
+
+Consider choosing RA3 node types in these cases:
+
+- You need the flexibility to scale and pay for compute separate from storage.
+- You query a fraction of your total data.
+- Your data volume is growing rapidly or is expected to grow rapidly.
+- You want the flexibility to size the cluster based only on your performance needs.
+
+DC2 nodes enable you to have compute-intensive data warehouses with local SSD storage included.
+
+DS2 nodes enable you to create large data warehouses using hard disk drives (HDDs), and we recommend using RA3 nodes instead.
+
+https://aws.amazon.com/blogs/big-data/use-amazon-redshift-ra3-with-managed-storage-in-your-modern-data-architecture/
+
+****Node type details:**** *vCPU, RAM, Default slices per node, Storage, Node range and  Total capacity*
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7e3b7fc7-2178-433e-9da8-538353117a6f/6b19b855-932c-4fe8-b79a-96dfe89a6580/Untitled.png)
+
+![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7e3b7fc7-2178-433e-9da8-538353117a6f/0bfeb0ea-5d02-4e66-a1e2-c247da93d1ec/Untitled.png)
+
+Cluster Types:
+
+Single-node Cluster → sandbox for evaluation or development purposes
+
+Multi-node Cluster → staging and production purposes
+
+Some node types allow one node (single-node) or two or more nodes (multi-node). The minimum number of nodes for clusters of some node types is two nodes. On a single-node cluster, the node is shared for leader and compute functionality. Single-node clusters are not recommended for running production workloads. On a multi-node cluster, the leader node is separate from the compute nodes. The leader node is the same node type as the compute nodes. You only pay for compute nodes.
+
+Federate access to your Amazon Redshift cluster with Active Directory
+
+https://aws.amazon.com/blogs/big-data/federate-access-to-your-amazon-redshift-cluster-with-active-directory-federation-services-ad-fs-part-1/
+
+https://aws.amazon.com/blogs/big-data/federate-access-to-your-amazon-redshift-cluster-with-active-directory-federation-services-ad-fs-part-2/
+
+**Columnar storage**
+
+https://docs.aws.amazon.com/redshift/latest/dg/c_columnar_storage_disk_mem_mgmnt.html
+
+**Using the Pivot Rows to Columns transform**
+
+https://docs.aws.amazon.com/glue/latest/dg/transforms-pivot-rows-to-columns.html
+
+What to consider when migrating data warehouse to Amazon Redshift
+
+https://aws.amazon.com/blogs/big-data/what-to-consider-when-migrating-data-warehouse-to-amazon-redshift/
+
+Events and Notifications
+
+[https://repost.aws/knowledge-center/notific](https://repost.aws/knowledge-center/notification-maintenance-rds-redshift)1
+
+Database Security Overview
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_Database_objects.html
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_superusers.html
+
+http://docs.aws.amazon.com/redshift/latest/dg/r_Privileges.html
+
+Lab2: Launching an Amazon Redshift Cluster
+
+=================================Day2=================================
+Module4: Designing the Database Schema
+
+(Schemas,Compression,Distribution Styles(ALL,EVEN,Key), Sort Methods (Single,Compound,Interleaved))
+
+*Est_reduction_pct =* Estimated reduction percentage 
+
+Compression encodings - ENCODE AUTO is the default for tables.
+
+https://docs.aws.amazon.com/redshift/latest/dg/c_Compression_encodings.html
+
+Schemas and Data Types
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_Schemas_and_tables.html
+
+https://docs.aws.amazon.com/redshift/latest/dg/c_Supported_data_types.html
+
+https://docs.aws.amazon.com/redshift/latest/mgmt/spark-redshift-connector-data-types.html
+
+Keep Columns Narrow
+
+https://docs.aws.amazon.com/redshift/latest/dg/c_best-practices-smallest-column-size.html
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_SVV_TABLE_INFO.html
+
+Columnar Compression
+
+https://s3-eu-west-1.amazonaws.com/cdn.jefclaes.be/amazon-redshift-fundamentals/aws-redshift-fundamentals.html#compression
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_ANALYZE_COMPRESSION.html
+
+**Compression** is a key feature of Amazon Redshift that improves performance by reducing the amount of storage needed
+
+There is a notable difference between using the `ANALYZE COMPRESSION` command or having Redshift automatically apply compression during the `COPY` operation. 
+
+The `ANALYZE COMPRESSION` command looks for minimum space usage and will vary frequently recommend `ZStandard`. 
+
+The `COPY` command on the other hand looks for the most time efficient encoding, which will most likely be `LZO`.
+
+https://s3-eu-west-1.amazonaws.com/cdn.jefclaes.be/amazon-redshift-fundamentals/aws-redshift-fundamentals.html#compression
+
+**How automatic compression works**
+
+When the COMPUPDATE parameter is ON, the COPY command applies automatic compression whenever you run the COPY command with an empty target table and all of the table columns either have RAW encoding or no encoding.
+
+To apply automatic compression to an empty table, regardless of its current compression encodings, run the COPY command with the COMPUPDATE option set to ON. To turn off automatic compression, run the COPY command with the COMPUPDATE option set to OFF.
+
+You CANNOT apply automatic compression to a table that already contains data.
+
+https://docs.aws.amazon.com/redshift/latest/dg/c_Loading_tables_auto_compress.html
+
+**ANALYZE COMPRESSION**
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_ANALYZE_COMPRESSION.html
+
+Using the COPY command to load from Amazon S3
+
+https://docs.aws.amazon.com/redshift/latest/dg/t_loading-tables-from-s3.html
+
+STV_BLOCKLIST system table
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_STV_BLOCKLIST.html
+
+=================Data Distribution Styles=================
+
+Three **Distribution style**
+
+https://docs.aws.amazon.com/redshift/latest/dg/c_choosing_dist_sort.html
+
+https://s3-eu-west-1.amazonaws.com/cdn.jefclaes.be/amazon-redshift-fundamentals/aws-redshift-fundamentals.html#distribution-style
+
+When you create a table, you can designate one of four distribution styles; AUTO, EVEN, KEY, or ALL.
+
+If you **don't** specify a distribution style, Amazon Redshift uses AUTO distribution.
+
+Script to evaluate data skew:
+
+https://github.com/awslabs/amazon-redshift-utils/blob/master/src/AdminScripts/table_inspector.sql
+
+**Choose the best distribution style**
+
+https://docs.aws.amazon.com/redshift/latest/dg/c_best-practices-best-dist-key.html
+
+https://docs.aws.amazon.com/redshift/latest/dg/c_choosing_dist_sort.html
+
+If you don't specify a distribution style, Amazon Redshift uses AUTO distribution.
+
+- EVEN distributes rows across all slices in a round-robin fashion regardless of the values in any particular column.
+- ALL distributes a copy of the entire table to every node. ALL distribution stores a full copy of the table on the first slice of each node.
+- KEY distributes rows according to the values in a specified column. If you distribute a pair of tables with a KEY column, rows with the same value in that column are stored on the same slice.
+- AUTO assigns an optimal distribution style based on the size of the table data. For example, Amazon Redshift initially assigns ALL distribution to a small table and then changes to EVEN distribution when the table grows larger. This is the default distribution style.
+
+https://aws.amazon.com/blogs/big-data/amazon-redshift-engineerings-advanced-table-design-playbook-distribution-styles-and-distribution-keys/
+
+=================**Sort Key Types**=================
+Amazon Redshift supports two different types of Sort Keys, Compound Sort Keys, and Interleaved Sort Keys.
+
+Why do we need Sorting? https://docs.aws.amazon.com/redshift/latest/dg/t_Sorting_data.html
+
+*Sorting enables efficient handling of range-restricted predicates. Amazon Redshift stores columnar data in 1 MB disk blocks. The min and max values for each block are stored as part of the metadata. If a query uses a range-restricted predicate, the query processor can use the min and max values to rapidly skip over large numbers of blocks during table scans. For example, suppose that a table stores five years of data sorted by date and a query specifies a date range of one month. In this case, you can remove up to 98 percent of the disk blocks from the scan. If the data is not sorted, more of the disk blocks (possibly all of them) have to be scanned.*
+
+To define a sort type, use either the INTERLEAVED or COMPOUND keyword with your CREATE TABLE or CREATE TABLE AS statement. 
+
+**The default is COMPOUND**. COMPOUND is recommended when you update your tables regularly with INSERT, UPDATE, or DELETE operations. 
+
+An **interleaved sort key** gives equal weight to each column in the sort key, so query predicates can use any subset of the columns that make up the sort key, in any order. An INTERLEAVED sort key can use a maximum of eight columns.
+
+https://docs.aws.amazon.com/redshift/latest/dg/t_Sorting_data.html
+
+Amazon Redshift Engineering’s Advanced Table Design Playbook: Compound and Interleaved Sort Keys
+
+https://aws.amazon.com/blogs/big-data/amazon-redshift-engineerings-advanced-table-design-playbook-compound-and-interleaved-sort-keys/
+
+**Vacuuming tables**
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_VACUUM_command.html
+
+https://docs.aws.amazon.com/redshift/latest/dg/t_Reclaiming_storage_space202.html
+
+****How do I troubleshoot performance issues with VACUUM in Amazon Redshift?****
+
+https://repost.aws/knowledge-center/redshift-vacuum-performance
+
+table performance มีปัญหา run ***SVV_INTERLEAVED_COLUMNS***
+
+**https://docs.aws.amazon.com/redshift/latest/dg/r_SVV_INTERLEAVED_COLUMNS.html**
+
+**Query plan**
+
+https://docs.aws.amazon.com/redshift/latest/dg/c-the-query-plan.html
+
+The **cost** field provides a *relative measure* of the effort required to run the query. It is measured in cost units that are arbitrary but conventionally mean disk page fetches. Basically, a smaller number is better.
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_EXPLAIN.html
+
+=================================Module 5: Identifying Data Sources-63============================
+
+**Loading data from DynamoDB into Amazon Redshift**
+
+https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/RedshiftforDynamoDB.html
+
+COPY command
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_COPY_command_examples.html
+
+Amazon Redshift best practices for loading data
+
+https://docs.aws.amazon.com/redshift/latest/dg/c_loading-data-best-practices.html
+
+COPY from Amazon DynamoDB
+
+https://docs.aws.amazon.com/redshift/latest/dg/copy-parameters-data-source-dynamodb.html
+
+**Controlling Access with Amazon Kinesis Data Firehose**
+
+[http://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-rs](http://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html)
+
+**Troubleshooting Amazon Kinesis Data Firehose**
+
+[http://docs.aws.amazon.com/firehose/latest/dev/troubleshooting.html#data-not-delivered-to-rs](http://docs.aws.amazon.com/firehose/latest/dev/troubleshooting.html)
+
+****Best Practices for Micro-Batch Loading on Amazon Redshift****
+
+https://aws.amazon.com/blogs/big-data/best-practices-for-micro-batch-loading-on-amazon-redshift/
+
+**COPY from remote host (SSH)-Loading data from remote hosts**
+
+https://docs.aws.amazon.com/redshift/latest/dg/loading-data-from-remote-hosts.html
+
+https://docs.aws.amazon.com/redshift/latest/dg/copy-parameters-data-source-ssh.html
+
+****A Zero-Administration Amazon Redshift Database Loader****
+
+https://aws.amazon.com/blogs/big-data/a-zero-administration-amazon-redshift-database-loader/
+
+https://github.com/awslabs/aws-lambda-redshift-loader
+
+DMS and SCT
+
+https://docs.aws.amazon.com/SchemaConversionTool/latest/userguide/CHAP_Welcome.html
+
+Analyzing Tables
+
+https://docs.aws.amazon.com/redshift/latest/dg/t_Analyzing_tables.html
+
+Lab4: Loading Real-Time Data into Your Amazon Redshift Database
+
+=================================Module 6: Loading Data-61=================================
+
+https://docs.aws.amazon.com/redshift/latest/dg/t_preparing-input-data.html
+
+**Permissions to access other AWS Resources**
+
+https://docs.aws.amazon.com/redshift/latest/dg/copy-usage_notes-access-permissions.html#r_copy-temporary-security-credentials
+
+**Data format parameters**
+
+https://docs.aws.amazon.com/redshift/latest/dg/copy-parameters-data-format.html
+
+**Loading default column values**
+
+https://docs.aws.amazon.com/redshift/latest/dg/c_loading_default_values.html
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_COPY_command_examples.html#r_COPY_command_examples-load-data-from-a-file-with-default-values
+
+**Managing the size of the unsorted region**
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_vacuum_diskspacereqs.html
+
+Updating Tables with DML Commands
+
+**Performing a deep copy**
+
+https://docs.aws.amazon.com/redshift/latest/dg/performing-a-deep-copy.html
+
+1-DDL
+
+to get the DDL for a table
+
+https://github.com/awslabs/amazon-redshift-utils/blob/master/src/AdminViews/v_generate_tbl_ddl.sql
+
+https://dev.to/kishanbsh/how-to-get-the-ddl-dump-of-a-redshift-database-2bkb
+
+https://support.sqldbm.com/knowledge-bases/2/articles/2654-how-to-generate-sql-ddl-script-from-redshift-for-reverse-engineering
+
+https://github.com/awslabs/amazon-redshift-utils/blob/master/src/AdminViews/v_generate_tbl_ddl.sql
+
+2-CREATE TABLE LIKE.
+
+https://hevodata.com/learn/amazon-redshift-copy-table/#7
+
+3-Create a temporary table and truncate the original table.
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_CREATE_TABLE_AS.html
+
+**Managing concurrent write operations**
+
+https://docs.aws.amazon.com/redshift/latest/dg/c_Concurrent_writes.html
+
+****Potential deadlock situation for concurrent write transactions****
+
+https://docs.aws.amazon.com/redshift/latest/dg/c_write_readwrite.html
+
+**Concurrent write examples**
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_Serializable_isolation_example.html
+
+**Troubleshooting queries**
+
+https://docs.aws.amazon.com/redshift/latest/dg/queries-troubleshooting.html
+
+Validating Data and Troubleshooting Data Loads
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_STL_LOAD_ERRORS.html
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_STL_FILE_SCAN.html
+
+**Amazon Redshift best practices for loading data**
+
+https://docs.aws.amazon.com/redshift/latest/dg/c_loading-data-best-practices.html
+
+=================================Day3=================================
+
+===================Module 7: Writing Queries and Tuning Performance-64
+
+**Leader node–only functions**
+
+https://docs.aws.amazon.com/redshift/latest/dg/c_SQL_functions_leader_node_only.html
+
+https://docs.aws.amazon.com/redshift/latest/dg/c_sql-functions-leader-node.html
+
+**Compute node–only functions**
+
+https://docs.aws.amazon.com/redshift/latest/dg/c_SQL_functions_compute_node_only.html
+
+**Features that are implemented differently-Amazon Redshift and PostgreSQL**
+
+https://docs.aws.amazon.com/redshift/latest/dg/c_redshift-sql-implementated-differently.html
+
+http://docs.aws.amazon.com/redshift/latest/dg/c_redshift-and-postgres-sql.html
+
+.—.—.—.—.—.—.—.—.—.—.—.—.—.—.—.—.—.—.—.—.—.—.—.—
+
+**Redshift System Tables**
+
+**1-STV tables:** STV tables contain snapshots of the current system data. Why snapshots? STV tables only hold data pertaining to the system at that point in time – the data stored in the table is transient. They are preceded by the STV naming prefix, for example, STV_SESSIONS.
+
+2-**STL tables:** STL tables contain historical system logs that have been persisted to disk. They are not usually interacted with directly, most of the querying is done with STL views.
+
+https://repost.aws/knowledge-center/logs-redshift-database-cluster
+
+**Redshift System Views.**
+
+**STL views:** STL views are generated from the system log files stored every node in Redshift’s clusters.
+
+These logs are persisted to the disk to provide a history of the system. In a nutshell, STL views are used for data regarding system logging.
+
+Example:
+
+**STL_INSERT –** Analyzes insert execution steps for queries.
+
+**STL_LOAD_COMMITS – Returns information to track or troubleshoot a data load.**
+
+**SVV views:** SVV views contain referential data. They contain references to STV tables and their transient values. They are preceded by the SVV naming prefix.
+
+Example:****
+
+**SVV_ALL_COLUMNS:** Used to view catalog information about the columns of local and external tables and views.
+
+**SVV_QUERY_STATE: used to view information about the execution of currently running queries.**
+
+**SVCS views:** SVCS views provide information about queries in main and concurrency scaling clusters in the data warehouse. The data in SVCS views are similar to those in the STL views except that data in STL views are only for the main clusters in the data warehouse.
+
+Example:****
+
+**SVCS_COMPILE –** Records compile-time and location for each query run on either the main cluster or a scaling cluster.
+
+**SVCS_CONCURRENCY_SCALING_USAGE** – Records the usage periods for concurrency scaling.
+
+**SVL views:** Also considered referential views, they contain references to STL tables and the logs they contain. Just like system views, they provide quicker and easier access to frequently accessed data in the tables.
+
+Example:
+
+ **SVL_TERMINATE –** Records the time when a user cancels or terminates a process.
+
+**SVL_USER_INFO:** SVL_USER_INFO view is used to retrieve data about Amazon Redshift database users.
+
+https://docs.aws.amazon.com/redshift/latest/dg/svl_views.html
+
+Next→ ****Redshift System Tables and Views Permission****
+
+Syntactically: GRANT SELECT ALL [PRIVILEGES] ON TABLE table_name TO [USERNAME | GROUP].
+
+**grant select on table sales to fred;**
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_GRANT-examples.html
+
+.—.—.—.—.—.—.—.—.—.—.—.—.—.—.—.—.—.—.—.—.—.—.—.—.—.—.—
+
+Amazon Redshift System Catalog Tables
+
+The system catalogs store schema metadata, such as information about tables and columns. 
+
+System catalog tables have a PG prefix.
+
+http://docs.aws.amazon.com/redshift/latest/dg/c_intro_catalog_views.html
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_PG_DEFAULT_ACL.html
+
+User-Defined Functions (UDFs)
+
+https://docs.aws.amazon.com/redshift/latest/dg/user-defined-functions.html
+
+**Example uses of user-defined functions (UDFs)**
+
+https://docs.aws.amazon.com/redshift/latest/dg/udf-example-uses.html
+
+A collection of stored procedures and user-defined functions (UDFs) for Amazon Redshift
+
+https://github.com/aws-samples/amazon-redshift-udfs
+
+**Factors affecting query performance-Query processing**
+
+https://docs.aws.amazon.com/redshift/latest/dg/c-query-performance.html
+
+**Query SVL_COMPILE**
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_SVL_COMPILE.html
+
+**Amazon Redshift Utilities**
+
+https://github.com/awslabs/amazon-redshift-utils
+
+Lab: Configuring Workload Management
+
+===================Module 8: Amazon Redshift Spectrum-38===================
+
+**Amazon Redshift Spectrum**
+
+https://docs.aws.amazon.com/redshift/latest/dg/c-using-spectrum.html
+
+****Amazon Redshift pricing****
+https://aws.amazon.com/redshift/pricing/
+
+Log
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_SVL_S3QUERY.html
+
+Lab: Using Amazon Redshift Spectrum
+
+===================Module 9: Maintaining Clusters-47===================
+
+https://repost.aws/knowledge-center/logs-redshift-database-cluster
+
+Connection Log
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_STL_CONNECTION_LOG.html
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_STL_USERLOG.html
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_STL_QUERY.html
+
+https://docs.aws.amazon.com/redshift/latest/dg/r_STL_QUERYTEXT.html
+
+https://docs.aws.amazon.com/redshift/latest/mgmt/db-auditing.html
+
+****Resizing clusters in Amazon Redshift****
+
+https://docs.aws.amazon.com/redshift/latest/mgmt/managing-cluster-operations.html
+
+===============================================================
+Lab: Auditing and Monitoring Amazon Redshift Clusters
+Lab: Backing Up, Restoring and Resizing Clusters
+Module 10: Analyzing and Visualizing Data-31
+
+Ref:
+
+**Amazon Redshift best practices**
+
+https://docs.aws.amazon.com/redshift/latest/dg/best-practices.html
+
+**Data type differences between Amazon Redshift and supported PostgreSQL and MySQL databases**
+
+https://docs.aws.amazon.com/redshift/latest/dg/federated-data-types.html
+
+****Redshift Maintenance 101****
+
+https://www.sisense.com/blog/redshift-maintenance/
+
+**10 Redshift Create Table Examples to make you an expert**
+
+https://www.obstkel.com/redshift-create-table-example
+
+****How do I detect and release locks in Amazon Redshift?****
+
+https://repost.aws/knowledge-center/prevent-locks-blocking-queries-redshift
+
+**Redshift Permissions 101: Types & How to Grant and Revoke Access?**
+
+https://hevodata.com/learn/redshift-permissions/
